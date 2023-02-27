@@ -1,7 +1,39 @@
 {% extends 'base.html' %}
 {% block title %}Product Details{% endblock %}
 {% block content %}
-<div class="card mb-3"">
+<a href="{% url 'product_edit' product.pk %}">Редактировать</a>
+<a href="{% url 'product_delete' product.pk %}" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ product.pk }}">Удалить</a>
+<div class="confirm-delete">
+    <div class="modal fade" id="exampleModal-{{ product.pk }}" tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Подтвердите удаление</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row form-login">
+                        <p>Вы уверены, что хотите удалить товар - {{ product.name }}?!
+                        </p>
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'product_delete' product.pk %}"
+                       class="btn btn-danger">Удалить</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Отмена
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-4">
             <img src="../{{ product.image }}" class="img-fluid rounded-start" alt="{{ product.name }}">
