@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Products View{% endblock %}
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% if products %}
+    {% for product in products %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}" height="300">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">Цена: {{ product.price }} KZT</p>
+                {% for category in categories %}
+                {% if category.0 == product.category %}
+                <p class="card-text">Категория: {{ category.1 }}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h1>Продуктов нет!</h1>
+    <a href="#">Добавить продукт</a>
+    {% endif %}
+    {% endblock %}
+</div>
