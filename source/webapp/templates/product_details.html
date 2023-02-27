@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Product Details{% endblock %}
+{% block content %}
+<div class="card mb-3"">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="../{{ product.image }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text">Описание: {{ product.description }}</p>
+                {% for category in categories %}
+                {% if category.0 == product.category %}
+                <p class="card-text">Категория: {{ category.1 }}</p>
+                {% endif %}
+                {% endfor %}
+                <p class="card-text">Остаток: {{ product.remains }}</p>
+                <p class="card-text">Цена: {{ product.price }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
