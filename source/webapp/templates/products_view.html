@@ -1,29 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Products View{% endblock %}
 {% block navbar_item %}
-<form class="d-flex">
-    {% csrf_token %}
-    <input class="form-control me-2" type="search" placeholder="Найти" aria-label="Search">
+<form class="d-flex" action="{% url 'products_view' %}">
+    <input class="form-control me-2" type="search" placeholder="Найти" aria-label="Search" name="search_product">
     <button class="btn btn-outline-light" type="submit">Найти</button>
 </form>
 {% endblock %}
 {% block content_heading %}Список товаров{% endblock %}
 {% block content %}
-
-<select class="form-select" aria-label="Default select example">
-    <option selected>Выберите категорию</option>
-    {% for category in categories %}
-    <option value="{{ category.0 }}">{{ category.1 }}</option>
-    {% endfor %}
-</select>
-
 <div class="row row-cols-1 row-cols-md-3 g-4 pt-3">
     {% if products %}
     {% for product in products %}
     {% if product.remains >= 1 %}
     <div class="col">
         <div class="card h-100">
+            {% if product.image %}
             <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}">
+            {% else %}
+            <img src="../../static/media/no_image.jpg" class="card-img-top" alt="No Image">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">
                     <a href="{% url 'product_details' product.pk %}">{{ product.name }}</a>
@@ -40,8 +35,10 @@
     {% endif %}
     {% endfor %}
     {% else %}
-    <h1>Продуктов нет!</h1>
-    <a href="#">Добавить продукт</a>
+    <div class="another_view">
+        <h2>Продукты не найдены!</h2>
+        <p><a href="{% url 'product_add' %}">Добавить продукт</a></p>
+    </div>
     {% endif %}
     {% endblock %}
 </div>

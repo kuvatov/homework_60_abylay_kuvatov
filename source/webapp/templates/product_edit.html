@@ -2,7 +2,7 @@
 {% block title %}Product Add{% endblock %}
 {% block content_heading %}Редактирование товара{% endblock %}
 {% block content %}
-<form action="{% url 'product_edit' product.pk %}" method="post">
+<form action="{% url 'product_edit' product.pk %}" method="post" novalidate>
     {% include 'partial/product_form.html' %}
 </form>
 {% endblock %}

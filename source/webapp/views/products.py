@@ -1,4 +1,5 @@
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from webapp.forms import ProductForm
@@ -7,8 +8,13 @@ from webapp.models import Product, CategoryChoice
 
 # Create your views here.
 def products_view(request: WSGIRequest):
+    search_product = request.GET.get('search_product')
+    if search_product:
+        products = Product.objects.filter(Q(name__icontains=search_product.capitalize()))
+    else:
+        products = Product.objects.exclude(is_deleted=True).order_by('category', 'name')
     context = {
-        'products': Product.objects.exclude(is_deleted=True).order_by('category', 'name'),
+        'products': products,
         'categories': CategoryChoice.choices
     }
     return render(request, 'products_view.html', context=context)

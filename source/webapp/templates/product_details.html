@@ -39,7 +39,11 @@
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-4">
+            {% if product.image %}
             <img src="../{{ product.image }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+            {% else %}
+            <img src="../../static/media/no_image.jpg" class="card-img-top" alt="No Image">
+            {% endif %}
         </div>
         <div class="col-md-8">
             <div class="card-body">
