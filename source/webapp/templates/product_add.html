@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Product Add{% endblock %}
+{% block content_heading %}Добавление товара{% endblock %}
 {% block content %}
 <form action="{% url 'product_add' %}" method="post">
     {% include 'partial/product_form.html' %}

@@ -4,25 +4,34 @@
 <form class="d-flex">
     {% csrf_token %}
     <input class="form-control me-2" type="search" placeholder="Найти" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Найти</button>
+    <button class="btn btn-outline-light" type="submit">Найти</button>
 </form>
 {% endblock %}
+{% block content_heading %}Список товаров{% endblock %}
 {% block content %}
-<div class="row row-cols-1 row-cols-md-3 g-4">
+
+<select class="form-select" aria-label="Default select example">
+    <option selected>Выберите категорию</option>
+    {% for category in categories %}
+    <option value="{{ category.0 }}">{{ category.1 }}</option>
+    {% endfor %}
+</select>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 pt-3">
     {% if products %}
     {% for product in products %}
     {% if product.remains >= 1 %}
     <div class="col">
         <div class="card h-100">
-            <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}" height="300">
+            <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}">
             <div class="card-body">
                 <h5 class="card-title">
                     <a href="{% url 'product_details' product.pk %}">{{ product.name }}</a>
                 </h5>
-                <p class="card-text">Цена: {{ product.price }} KZT</p>
+                <p class="card-text"><b>Цена:</b> {{ product.price }} KZT</p>
                 {% for category in categories %}
                 {% if category.0 == product.category %}
-                <p class="card-text">Категория: {{ category.1 }}</p>
+                <p class="card-text"><b>Категория:</b> {{ category.1 }}</p>
                 {% endif %}
                 {% endfor %}
             </div>

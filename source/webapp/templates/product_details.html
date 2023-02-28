@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Product Details{% endblock %}
+{% block content_heading %}Подробное описание товара{% endblock %}
 {% block content %}
-<a href="{% url 'product_edit' product.pk %}">Редактировать</a>
-<a href="{% url 'product_delete' product.pk %}" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ product.pk }}">Удалить</a>
+<div class="page_action pb-3">
+    <a href="{% url 'product_edit' product.pk %}" class="btn btn-primary">Редактировать</a>
+    <a href="{% url 'product_delete' product.pk %}" data-bs-toggle="modal"
+       data-bs-target="#exampleModal-{{ product.pk }}" class="btn btn-danger">Удалить</a>
+</div>
 <div class="confirm-delete">
     <div class="modal fade" id="exampleModal-{{ product.pk }}" tabindex="-1"
          aria-labelledby="exampleModalLabel"
@@ -32,7 +36,6 @@
         </div>
     </div>
 </div>
-
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-4">
@@ -40,16 +43,15 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.description }}</p>
-                <p class="card-text">Описание: {{ product.description }}</p>
+                <h3 class="card-title">{{ product.name }}</h3>
+                <p class="card-text"><b>Описание:</b> {{ product.description }}</p>
                 {% for category in categories %}
                 {% if category.0 == product.category %}
-                <p class="card-text">Категория: {{ category.1 }}</p>
+                <p class="card-text"><b>Категория:</b> {{ category.1 }}</p>
                 {% endif %}
                 {% endfor %}
-                <p class="card-text">Остаток: {{ product.remains }}</p>
-                <p class="card-text">Цена: {{ product.price }}</p>
+                <p class="card-text"><b>Остаток:</b> {{ product.remains }}</p>
+                <p class="card-text"><b>Цена:</b> {{ product.price }}</p>
             </div>
         </div>
     </div>
