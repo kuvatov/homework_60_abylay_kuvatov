@@ -23,6 +23,8 @@ class ProductsView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
+        categories = CategoryChoice.choices
+        context['categories'] = categories
         context['form'] = self.form
 
         if self.search_value:

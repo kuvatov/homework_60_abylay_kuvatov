@@ -24,7 +24,11 @@
                     <a href="{% url 'product_details' product.pk %}">{{ product.name }}</a>
                 </h5>
                 <p class="card-text"><b>Цена:</b> {{ product.price }} KZT</p>
-                <p class="card-text"><b>Категория:</b> {{ product.category }}</p>
+                {% for category in categories %}
+                {% if category.0 == product.category %}
+                <p class="card-text"><b>Категория:</b> {{ category.1 }}</p>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
