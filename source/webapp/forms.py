@@ -23,3 +23,7 @@ class ProductForm(forms.ModelForm):
         elif len(name) < 2:
             raise ValidationError('Имя не может состоять из одного символа!')
         return name.capitalize()
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=100, required=False, label='Найти')

@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block title %}Products View{% endblock %}
 {% block navbar_item %}
-<form class="d-flex" action="{% url 'products_view' %}">
-    <input class="form-control me-2" type="search" placeholder="Найти" aria-label="Search" name="search_product">
-    <button class="btn btn-outline-light" type="submit">Найти</button>
-</form>
+{% include 'partial/search_form.html' %}
 {% endblock %}
 {% block content_heading %}Список товаров{% endblock %}
 {% block content %}
+{% if is_paginated %}
+{% include 'partial/pagination.html' %}
+{% endif %}
 <div class="row row-cols-1 row-cols-md-3 g-4 pt-3">
     {% if products %}
     {% for product in products %}
@@ -24,11 +24,7 @@
                     <a href="{% url 'product_details' product.pk %}">{{ product.name }}</a>
                 </h5>
                 <p class="card-text"><b>Цена:</b> {{ product.price }} KZT</p>
-                {% for category in categories %}
-                {% if category.0 == product.category %}
-                <p class="card-text"><b>Категория:</b> {{ category.1 }}</p>
-                {% endif %}
-                {% endfor %}
+                <p class="card-text"><b>Категория:</b> {{ product.category }}</p>
             </div>
         </div>
     </div>
@@ -40,5 +36,8 @@
         <p><a href="{% url 'product_add' %}">Добавить продукт</a></p>
     </div>
     {% endif %}
-    {% endblock %}
 </div>
+{% if is_paginated %}
+{% include 'partial/pagination.html' %}
+{% endif %}
+{% endblock %}

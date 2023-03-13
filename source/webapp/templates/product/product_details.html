@@ -48,14 +48,18 @@
         <div class="col-md-8">
             <div class="card-body">
                 <h3 class="card-title">{{ product.name }}</h3>
+                {% if product.description %}
                 <p class="card-text"><b>Описание:</b> {{ product.description }}</p>
+                {% else %}
+                <p class="card-text"><b>Описание:</b> Не добавлено!</p>
+                {% endif %}
                 {% for category in categories %}
                 {% if category.0 == product.category %}
                 <p class="card-text"><b>Категория:</b> {{ category.1 }}</p>
                 {% endif %}
                 {% endfor %}
                 <p class="card-text"><b>Остаток:</b> {{ product.remains }}</p>
-                <p class="card-text"><b>Цена:</b> {{ product.price }}</p>
+                <p class="card-text"><b>Цена:</b> {{ product.price }} KZT</p>
             </div>
         </div>
     </div>
