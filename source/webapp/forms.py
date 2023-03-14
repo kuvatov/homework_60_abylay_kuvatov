@@ -1,19 +1,20 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from webapp.models import Product
+from webapp.models import Product, Cart
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'description', 'category', 'remains', 'price')
+        fields = ('name', 'description', 'category', 'remains', 'price', 'image')
         labels = {
             'name': 'Наименование',
             'description': 'Описание',
             'category': 'Категория',
             'remains': 'Остаток',
-            'price': 'Цена'
+            'price': 'Цена',
+            'image': 'Картинка'
         }
 
     def clean_name(self):

@@ -93,3 +93,6 @@ footer p {
     text-align: center;
     border: solid 1px black;
 }
+.cart_icon {
+    background: white;
+}
