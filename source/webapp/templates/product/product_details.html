@@ -60,6 +60,12 @@
                 {% endfor %}
                 <p class="card-text"><b>Остаток:</b> {{ product.remains }}</p>
                 <p class="card-text"><b>Цена:</b> {{ product.price }} KZT</p>
+                <form action="{% url 'add_to_cart' product.pk %}" method="POST">
+                    {% csrf_token %}
+                    <label for="quantity">Количество:</label>
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button type="submit">В корзину</button>
+                </form>
             </div>
         </div>
     </div>

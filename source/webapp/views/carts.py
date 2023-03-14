@@ -8,7 +8,7 @@ def add_to_cart(request: WSGIRequest, pk: int):
     product = get_object_or_404(Product, pk=pk)
     quantity = int(request.POST.get('quantity', 0))
     if product.remains <= quantity:
-        return redirect('home')
+        return redirect(request.META.get('HTTP_REFERER'))
     cart_item, created = Cart.objects.get_or_create(product=product)
     if not created:
         cart_item.quantity += quantity
@@ -18,7 +18,7 @@ def add_to_cart(request: WSGIRequest, pk: int):
     else:
         cart_item.quantity = quantity
         cart_item.save()
-    return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def cart(request: WSGIRequest):
@@ -29,5 +29,9 @@ def cart(request: WSGIRequest):
 
 def remove_from_cart(request: WSGIRequest, pk: int):
     cart_item = get_object_or_404(Cart, pk=pk)
-    cart_item.delete()
-    return redirect('cart_view')
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+    else:
+        cart_item.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
