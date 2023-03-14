@@ -1,6 +1,7 @@
 from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect, get_object_or_404
 
+from webapp.forms import OrderForm
 from webapp.models import Product, Cart
 
 
@@ -23,8 +24,13 @@ def add_to_cart(request: WSGIRequest, pk: int):
 
 def cart(request: WSGIRequest):
     cart_items = Cart.objects.all()
+    order_form = OrderForm()
     total = sum(item.product.price * item.quantity for item in cart_items)
-    return render(request, 'cart/cart_view.html', {'cart_items': cart_items, 'total': total})
+    return render(request, 'cart/cart_view.html', context={
+        'cart_items': cart_items,
+        'order_form': order_form,
+        'total': total
+    })
 
 
 def remove_from_cart(request: WSGIRequest, pk: int):

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-
+{% block title %}Cart View{% endblock %}
+{% block content_heading %}Корзина{% endblock %}
 {% block content %}
-<h1>Корзина</h1>
 <table>
     <thead>
     <tr>
@@ -16,21 +16,25 @@
     {% for item in cart_items %}
     <tr>
         <td>{{ item.product.name }}</td>
-        <td>${{ item.product.price }}</td>
+        <td>{{ item.product.price }} KZT</td>
         <td>
             <a href="{% url 'add_to_cart' item.product.pk %}">+</a>
             {{ item.quantity }}
             <a href="{% url 'remove_from_cart' item.pk %}">-</a>
         </td>
         <td>{{ item.product.price }} KZT</td>
-        <td><a href="{% url 'remove_from_cart' item.pk %}">Удалить</a></td>
     </tr>
     {% endfor %}
     <tr>
-        <td colspan="3">Итог:</td>
-        <td>${{ total }}</td>
+        <td colspan="3"><b>Итог:</b></td>
+        <td>{{ total }} KZT</td>
         <td></td>
     </tr>
     </tbody>
 </table>
+<form method="post" action="{% url 'create_order' %}">
+    {% csrf_token %}
+    {{ order_form.as_p }}
+    <button type="submit">Оформить заказ</button>
+</form>
 {% endblock %}

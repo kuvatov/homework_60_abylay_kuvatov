@@ -96,3 +96,9 @@ footer p {
 .cart_icon {
     background: white;
 }
+table th {
+    min-width: 150px;
+}
+#id_user_name {
+    min-width: 150px;
+}
