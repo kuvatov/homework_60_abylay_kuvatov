@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from webapp.models import Product, Cart
+from webapp.models import Product, Cart, Order
 
 
 # Register your models here.
@@ -22,5 +22,14 @@ class CartAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at']
 
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['products', 'user_name', 'phone', 'address', 'created_at']
+    list_filter = ['products', 'user_name', 'phone', 'address', 'created_at']
+    search_fields = ['products', 'user_name', 'phone', 'address', 'created_at']
+    fields = ['products', 'user_name', 'phone', 'address', 'created_at']
+    readonly_fields = ['created_at', 'updated_at']
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Cart, CartAdmin)
+admin.site.register(Order)
